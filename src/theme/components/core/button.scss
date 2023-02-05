@@ -1,0 +1,25 @@
+$activeButton: rgba(255,255,255,0.4);
+$error: red;
+
+button {
+  border-radius: 8px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  word-wrap: break-word;
+  background-color: rgba(0,0,0,0.2);
+  border: 1px solid #f1f1f1;
+  white-space: nowrap;
+  padding: 6px 12px;
+  font-size: 14px;
+  color: inherit;
+}
+
+button:hover {
+  border-color: $activeButton;
+  color: $activeButton;
+}
+
+button:disabled {
+  border-color: $error;
+  color: $error;
+}
