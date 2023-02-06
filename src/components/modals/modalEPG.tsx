@@ -1,17 +1,17 @@
-import React from "react";
+import React, { useState, useCallback, memo } from "react";
 import '../../theme/components/modals/modalEPG.scss';
 import { useSelectorT as useSelector, useDispatchT as useDispatch } from '../../redux/hooks';
 import { setSelectedEvent } from '../../redux/reducers/mainSlice';
 import ChannelInfo from "../core/channelInfo";
 import EventCard from "../core/eventCard";
-import { formatTime, formatDuration } from '../../utils/utils';
+import { formatTime, formatDuration, timeLine } from '../../utils/utils';
 
 export interface Event {
   id?: string
   name?: string
   date_begin?: number
   date_end?: number
-  onClick?: () => void
+  onMouseEnter?: () => void
   selected?: boolean
   duration?: string
   description?: string
@@ -48,17 +48,36 @@ const ModalEPG : React.FC = () => {
   const dispatch = useDispatch();
   const channels = useSelector((state) => state.main.channels);
   const selectedEvent = useSelector<ActiveEvent>((state) => state.main.selectedEvent);
+  const container = document.getElementById('channels-container');
+  const [position, setPosition] = useState({ left: 0, x: 0 });
+  const [active, setActive] = useState(false);
 
-  const onClickEvent = (event: ActiveEvent) => {
-    dispatch(setSelectedEvent(event));
-  };
+  const onClickEvent = useCallback((event: ActiveEvent) => {
+    if (!active) {
+      dispatch(setSelectedEvent(event));
+    }
+  }, [dispatch, active]);
 
-  const timeLine = [
-    '20:00', '21:00', '22:00', '23:00', '00:00', '01:00', '02:00',
-    '03:00', '04:00', '05:00', '06:00', '07:00', '08:00', '09:00',
-    '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00',
-    '17:00', '18:00', '19:00'
-  ]
+  const mouseDownHandler = useCallback((e: any) => {
+    setActive(true);
+    setPosition({
+      left: container?.scrollLeft || 0,
+      x: e.clientX
+    });
+  }, [setPosition, container]);
+
+  const mouseMoveHandler = useCallback((e: any) => {
+    if (active && container) {
+      const dx = e.clientX - position.x;
+      container.scrollLeft = position.left - dx;
+    }
+  }, [position, container, active]);
+
+  const mouseUpLeaveHandler = useCallback(() => {
+    setActive(false);
+  }, []);
+
+  console.log(position);
 
   return (
     <div className="root">
@@ -89,7 +108,14 @@ const ModalEPG : React.FC = () => {
           `}
         </p>
       </div>
-      <div className="channels-container">
+      <div
+        className="channels-container"
+        id="channels-container"
+        onMouseDown={mouseDownHandler}
+        onMouseMove={mouseMoveHandler}
+        onMouseUp={mouseUpLeaveHandler}
+        onMouseLeave={mouseUpLeaveHandler}
+      >
         <div className="channels">
           <div className="channel-header">
             <span>Hoy</span>
@@ -98,16 +124,16 @@ const ModalEPG : React.FC = () => {
             <ChannelInfo key={`${id}_${pos}`} image={image} number={number} />
           ))}
         </div>
-        <div className="events-container" id="events-container">
+        <div className="events-container">
           <div className="time-line">
             {timeLine.map((value) => (
-              <div className="time-line-element">
+              <div key={value} className="time-line-element">
                 <span>{value}</span>
               </div>
             ))}
           </div>
           {channels.map(({ id: idChannel, events } : Channel, pos) => (
-            <div key={`${idChannel}_${pos}_event`} className="events" >
+            <div key={`${idChannel}_${pos}_event`} className="events">
               {events && events.map((event : Event, posEv) => (
                 <EventCard
                   key={`${posEv}_${pos}`}
@@ -117,7 +143,7 @@ const ModalEPG : React.FC = () => {
                   selected={
                     selectedEvent.channel_id === idChannel && selectedEvent.id === posEv.toString()
                   }
-                  onClick={() => onClickEvent.call(this, { ...event, id: posEv.toString() })}
+                  onMouseEnter={() => onClickEvent.call(this, { ...event, id: posEv.toString() })}
                 />
               ))}
             </div>
@@ -128,4 +154,4 @@ const ModalEPG : React.FC = () => {
   );
 };
 
-export default ModalEPG;
+export default memo(ModalEPG);

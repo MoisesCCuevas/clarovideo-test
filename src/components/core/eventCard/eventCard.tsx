@@ -8,12 +8,12 @@ const EventCard : React.FC<Event> = (props) => {
     name,
     date_begin = 0,
     date_end = 0,
-    onClick,
+    onMouseEnter,
     selected
   } = props;
 
   return (
-    <div className={`event-card ${selected && 'event-card-selected'}`} onMouseEnter={onClick}>
+    <div className={`event-card ${selected && 'event-card-selected'}`} onMouseEnter={onMouseEnter}>
       <h4>{name}</h4>
       <div className='event-horary'>
         <span>{`${formatTime(date_begin)} - ${formatTime(date_end)}`}</span>

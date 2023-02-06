@@ -17,3 +17,14 @@
   width: 50%;
   height: 50%;
 }
+
+@media (max-width: 600px) {
+  .channel-card span {
+    display: none;
+  }
+
+  .channel-card img {
+    width: 90%;
+    height: 60%;
+  }
+}

@@ -1,16 +1,19 @@
+$lightGray: rgba(255,255,255,0.1);
+$darkGray: rgba(20,21,20,0.9);
+
 .event-card {
-  background-color: rgba(20,21,20,0.9);
+  background-color: $darkGray;
   height: 100%;
   width: 250px;
   position: relative;
 }
 
 .event-card-selected {
-  background: rgba(255,255,255,0.4);
+  background: $lightGray;
 }
 
 .event-card:hover {
-  background: rgba(255,255,255,0.4);
+  background: $lightGray;
 }
 
 .event-card h4 {

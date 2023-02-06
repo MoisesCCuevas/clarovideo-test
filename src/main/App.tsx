@@ -2,7 +2,7 @@ import React, { useCallback, useEffect } from 'react';
 import '../theme/main.scss';
 import { useSelectorT as useSelector, useDispatchT as useDispatch } from '../redux/hooks';
 import { setDataFromApi, setModalState } from '../redux/reducers/mainSlice';
-import { baseUrl, params } from './apiResorces';
+import { baseUrl, params } from '../utils/utils';
 import Button from '../components/core/button';
 import Modal from '../components/core/modal';
 
