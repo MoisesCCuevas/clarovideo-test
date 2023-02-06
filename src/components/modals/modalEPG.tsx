@@ -77,8 +77,6 @@ const ModalEPG : React.FC = () => {
     setActive(false);
   }, []);
 
-  console.log(position);
-
   return (
     <div className="root">
       <div className="event-selected-info">
@@ -96,7 +94,7 @@ const ModalEPG : React.FC = () => {
         </div>
         <p className="text">
           {selectedEvent.description || `
-            Event ${selectedEvent.id} channel ${selectedEvent.channel_id}. Lorem Ipsum is 
+            Event: ${selectedEvent.id}, channel id: ${selectedEvent.channel_id}. Lorem Ipsum is 
             simply dummy text of the printing and typesetting industry. 
             Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, 
             when an unknown printer took a galley of type and scrambled it to make a type 
