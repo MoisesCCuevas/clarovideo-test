@@ -13,7 +13,11 @@ const EventCard : React.FC<Event> = (props) => {
   } = props;
 
   return (
-    <div className={`event-card ${selected && 'event-card-selected'}`} onMouseEnter={onMouseEnter}>
+    <div
+      className={`event-card ${selected && 'event-card-selected'}`}
+      onMouseEnter={onMouseEnter}
+      data-testid="eventCard"
+    >
       <h4>{name}</h4>
       <div className='event-horary'>
         <span>{`${formatTime(date_begin)} - ${formatTime(date_end)}`}</span>

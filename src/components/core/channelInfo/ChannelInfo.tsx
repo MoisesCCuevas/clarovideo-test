@@ -8,7 +8,7 @@ const ChannelInfo : React.FC<Channel> = (props) => {
     number
   } = props;
   return (
-    <div className="channel-card">
+    <div className="channel-card" data-testid="channelInfo">
       <span className="text">{number}</span>
       <img alt="" src={image} />
     </div>

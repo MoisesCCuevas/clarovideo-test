@@ -2,15 +2,17 @@ import { createSlice } from '@reduxjs/toolkit';
 import { createDateFormat } from '../../utils/utils';
 import { ActiveEvent } from '../../components/modals/modalEPG';
 
+export const initialState = {
+  activeModal: '',
+  channels: [],
+  entry: {},
+  msg: 'wait',
+  selectedEvent: {}
+};
+
 export const mainSlice = createSlice({
   name: 'main',
-  initialState: {
-    activeModal: '',
-    channels: [],
-    entry: {},
-    msg: 'wait',
-    selectedEvent: {}
-  },
+  initialState,
   reducers: {
     setModalState: (state, { payload }) => {
       state.activeModal = payload

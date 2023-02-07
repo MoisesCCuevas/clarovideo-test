@@ -1,5 +1,5 @@
 import React, { useEffect, useState, lazy, Suspense } from "react";
-import { createPortal } from 'react-dom';
+import Portal from '../portal';
 import '../../../theme/components/core/modal.scss';
 
 interface ModalProps {
@@ -15,26 +15,24 @@ const Modal : React.FC<ModalProps> = (props) => {
     onCloseModal
   } = props;
 
-  const root = document.getElementById('root') as HTMLElement;
-
   const [ActiveModal, setActiveModal] = useState<any>();
 
   useEffect(() => {
     setActiveModal(LazyComponent(activeModal)); 
   }, [activeModal]);
 
-  return createPortal(
-    <React.Fragment>
+  return (
+    <Portal>
       {activeModal !== '' && (
-        <section className="modal">
+        <section className="modal" data-testid="modal-base">
           <i className="fas fa-times close-icon" onClick={onCloseModal} />
           <Suspense fallback={<i className="fas fa-spinner fa-spin" />}>
-            <ActiveModal />
+            {ActiveModal && (<ActiveModal />)}
           </Suspense>
         </section>
       )}
-    </React.Fragment>
-  , root);
+    </Portal>
+  );
 }
 
 export default Modal;

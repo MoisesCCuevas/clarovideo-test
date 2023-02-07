@@ -78,7 +78,7 @@ const ModalEPG : React.FC = () => {
   }, []);
 
   return (
-    <div className="root">
+    <div className="root" data-testid="modalEPG">
       <div className="event-selected-info">
         <h1 className="text">
           {`${selectedEvent.name}`}
@@ -109,6 +109,7 @@ const ModalEPG : React.FC = () => {
       <div
         className="channels-container"
         id="channels-container"
+        data-testid="channelsContainer"
         onMouseDown={mouseDownHandler}
         onMouseMove={mouseMoveHandler}
         onMouseUp={mouseUpLeaveHandler}

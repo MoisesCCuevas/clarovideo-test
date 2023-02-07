@@ -28,10 +28,11 @@ const App : React.FC = () => {
   }
 
   return (
-    <div className="button-container">
+    <div className="button-container" data-testid="main">
       <Button
         disabled={msg !== 'OK'}
         onClick={onClickButton}
+        data-testid="button"
       >
         Mostrar EPG
       </Button>
