@@ -1,8 +1,12 @@
-# Claro Video Test
+# Modal for TV channels timeline
 
-This proyect is part of a selection process for claro video. 
+I'm using a public API from Claro Video to get the info of tv channels and display them inside of a simple modal component. 
 
-## Available Scripts
+## Used Technologies
+1. React.js
+2. Sass
+3. Jest
+4. Redux toolkit
 
 In the project directory, you can run:
 
